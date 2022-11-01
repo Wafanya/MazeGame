@@ -11,7 +11,7 @@ void Player::draw(RenderWindow& win)
 	circ.setPosition(m_position.x, m_position.y);
 	win.draw(circ);
 }
-void Player::setPosition(Position position, RenderWindow& win)
+void Player::setPosition(Vector2i position, RenderWindow& win)
 {
 	m_position.x = position.x;
 	m_position.y = position.y;

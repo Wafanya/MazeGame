@@ -15,7 +15,7 @@ int main()
 			if (event.type == Event::Closed)
 				w.close();
 		}
-		w.clear(Color(30, 50, 100));
+		w.clear(Color(0, 0, 200));
 
 		player.draw(w);
 		player.update(w);
