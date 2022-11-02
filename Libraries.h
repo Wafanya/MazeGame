@@ -10,10 +10,10 @@ using namespace std;
 
 
 
-constexpr unsigned char SPEED = 1; //швидк≥сть шарика
-const int LENGHT = 25; const int WIDTH = 25;
-const int CELL_SIZE = 20;
-const int START_POS = (800-((LENGHT-1)*CELL_SIZE-CELL_SIZE/5)) /2;
+constexpr unsigned char NFS = 3; // швидк≥сть гравц€ P.S. Need For Speed: Most WAnted 
+const int LENGTH = 10; const int WIDTH = 10;
+const int CELL_SIZE = 80;
+const int START_POS = (800-((LENGTH-1)*CELL_SIZE-CELL_SIZE/5)) /2;
 
 #include "Player.h"
 #include "Maze.h"
