@@ -18,22 +18,27 @@ void Player::setPosition(Vector2i position, RenderWindow& win)
 }
 void Player::update(RenderWindow& win)
 {
+	int SPEED = 0;
 	//задаємо дію на кожну стрілочку
 	if (1 == Keyboard::isKeyPressed(Keyboard::Left))
 	{
 		m_direction = 0;
+		SPEED = NFS;
 	}
 	if (1 == Keyboard::isKeyPressed(Keyboard::Right))
 	{
 		m_direction = 1;
+		SPEED = NFS;
 	}
 	if (1 == Keyboard::isKeyPressed(Keyboard::Down))
 	{
 		m_direction = 2;
+		SPEED = NFS;
 	}
 	if (1 == Keyboard::isKeyPressed(Keyboard::Up))
 	{
 		m_direction = 3;
+		SPEED = NFS;
 	}
 	switch (m_direction)
 	{
