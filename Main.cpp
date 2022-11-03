@@ -5,8 +5,8 @@ int main()
 {
 	RenderWindow w(VideoMode(800, 800), "Maze");
 	Player player; Maze a;
-	srand(time(NULL)); 
-	w.setFramerateLimit(120);
+	srand(time(NULL));
+	w.setFramerateLimit(60);
 	while (w.isOpen())
 	{
 		Event event;
@@ -16,11 +16,11 @@ int main()
 				w.close();
 		}
 		w.clear(Color(0, 0, 200));
-
-		player.draw(w);
-		player.update(w);
 		a.draw(w);
+		player.draw(w);
+		player.update(w, a);
 
 		w.display();
 	}
+
 }
