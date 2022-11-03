@@ -1,20 +1,18 @@
 #pragma once
 #include "Libraries.h"
 
-class Maze;
+
+
 class Player     //клас гравець
 {
 	Vector2i m_position;
-	Vector2i cell;
 	char m_direction;  //напр€м "погл€ду" гравц€
-	int size =  CELL_SIZE - 4.2 * CELL_SIZE / 5;// 3.6
+	int size = CELL_SIZE - 3.5 * CELL_SIZE / 5;
 public:
+	void setPosition(Vector2i position, RenderWindow& win); //зм≥нити позиц≥ю
 	Player();
-	void setPosition(Vector2i position); //зм≥нити позиц≥ю
-	int getcell();
-	int getX() { return m_position.x; };
-	int getY() { return m_position.y; };
 	void draw(RenderWindow& win);    //промальовка
-	int isCol(Maze a); //чи вр≥завс€ у ст≥нку
-	void update(RenderWindow& win, Maze a);  //зм≥нювати м≥сцезнаходженн€ гравц€
+	bool isCol(RenderWindow& win); //чи вр≥завс€ у ст≥нку
+	void update(RenderWindow& win);  //зм≥нювати м≥сцезнаходженн€ гравц€
+
 };

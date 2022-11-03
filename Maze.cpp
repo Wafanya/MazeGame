@@ -5,7 +5,7 @@ Maze::Maze()
 	int x; int y; 
 	for (y = START_POS; y < START_POS+ WIDTH*CELL_SIZE; y+=CELL_SIZE)
 	{
-		for (x = START_POS; x < START_POS+LENGTH*CELL_SIZE; x+=CELL_SIZE)
+		for (x = START_POS; x < START_POS+LENGHT*CELL_SIZE; x+=CELL_SIZE)
 		{
 			MazeCell a(x, y);
 			cellsArray[(y - START_POS) / CELL_SIZE][(x - START_POS) / CELL_SIZE] = a;
@@ -15,11 +15,11 @@ Maze::Maze()
 
 	for (int i = 0; i < WIDTH; i++) // видалємо зайві бічні стінки
 	{
-		cellsArray[i][LENGTH - 1].wallTop(false);
-		cellsArray[i][LENGTH - 1].isVisited = true;
+		cellsArray[i][LENGHT - 1].wallTop(false);
+		cellsArray[i][LENGHT - 1].isVisited = true;
 
 	}
-	for (int j = 0; j < LENGTH; j++) // видалємо зайві бічні стінки
+	for (int j = 0; j < LENGHT; j++) // видалємо зайві бічні стінки
 	{
 		cellsArray[WIDTH - 1][j].wallLeft(false);
 		cellsArray[WIDTH - 1][j].isVisited = true;
@@ -28,7 +28,7 @@ Maze::Maze()
 }
 void Maze::draw(RenderWindow& win)
 {
-	for (int y = 0; y < LENGTH; y++)
+	for (int y = 0; y < LENGHT; y++)
 	{
 		for (int x = 0; x < WIDTH; x++)
 		{
@@ -50,7 +50,7 @@ void Maze::generate() //генерація лабіринту шляхом видалення стін у сітці
 		if ((y > 0) && (!cellsArray[y - 1][x].isVisited)) unvisitedNeighbours.push_back(&cellsArray[y - 1][x]); //перевірка чи є невідвідані сусіди
 		if ((x > 0) && (!cellsArray[y][x - 1].isVisited)) unvisitedNeighbours.push_back(&cellsArray[y][x - 1]);
 		if ((y < WIDTH - 2) && (!cellsArray[y + 1][x].isVisited)) unvisitedNeighbours.push_back(&cellsArray[y + 1][x]);
-		if ((x < LENGTH - 2) && (!cellsArray[y][x + 1].isVisited)) unvisitedNeighbours.push_back(&cellsArray[y][x + 1]);
+		if ((x < LENGHT - 2) && (!cellsArray[y][x + 1].isVisited)) unvisitedNeighbours.push_back(&cellsArray[y][x + 1]);
 
 		if (unvisitedNeighbours.size()>0)
 		{
@@ -96,7 +96,7 @@ void MazeCell::draw(RenderWindow& win)
 	rect1.setFillColor(Color::Magenta);
 	RectangleShape rect2;
 	rect2.setPosition(getX(), getY());
-	const Vector2f s1(CELL_SIZE+ CELL_SIZE/5, CELL_SIZE/5);
+	const Vector2f s1(CELL_SIZE+CELL_SIZE / 5, CELL_SIZE/5);
 	rect2.setSize(s1);
 	rect2.setFillColor(Color::Magenta);
 	rect2.setRotation(90);
@@ -107,4 +107,3 @@ void MazeCell::draw(RenderWindow& win)
 	if (getWallLeft())
 		win.draw(rect2);
 }
-
