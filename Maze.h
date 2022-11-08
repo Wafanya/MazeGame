@@ -36,5 +36,5 @@ private:
 public:
 	Maze();
 	void draw(RenderWindow& win);
-	friend int Player::isCol(Maze a);
+	friend int Player::isCol(Maze a, int& z);
 };
