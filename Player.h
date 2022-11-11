@@ -7,10 +7,15 @@ class Player     //клас гравець
 {
 	Vector2i m_position;
 	Vector2i cell;
+
+	int m_n; //к≥льк≥сть кл≥тин у лаб≥ринт≥. маЇ сп≥впадати з к≥льк≥стю в лаб≥ринт≥, очевидно. використовуЇтьс€ дл€ п≥драхуванн€ розм≥р≥в ≥ тд
+	int cell_size;
+	int start_pos;
+	int size;
 	int m_direction;  //напр€м "погл€ду" гравц€
-	int size = CELL_SIZE - 4.2 * CELL_SIZE / 5;// 3.6
 public:
 	Player();
+	Player(int n);
 	int getcell();
 	int getX() { return m_position.x; };
 	int getY() { return m_position.y; };

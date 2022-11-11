@@ -2,35 +2,68 @@
 
 Maze::Maze()
 {
-	int x; int y;
-	for (y = START_POS; y < START_POS + WIDTH * CELL_SIZE; y += CELL_SIZE)
+	int x; int y; 
+	m_n = 6; 
+	cell_size = (1000 - 100) / m_n;
+	start_pos = (1000 - ((m_n - 1) * cell_size - cell_size / 5)) / 2;
+
+	for (y = start_pos; y < start_pos + m_n * cell_size; y += cell_size)
 	{
-		for (x = START_POS; x < START_POS + LENGHT * CELL_SIZE; x += CELL_SIZE)
+		for (x = start_pos; x < start_pos + m_n * cell_size; x += cell_size)
 		{
-			MazeCell a(x, y);
-			cellsArray[(y - START_POS) / CELL_SIZE][(x - START_POS) / CELL_SIZE] = a;
+			MazeCell a(x, y, m_n);
+			cellsArray[(y - start_pos) / cell_size][(x - start_pos) / cell_size] = a;
 
 		}
 	}
 
-	for (int i = 0; i < WIDTH; i++) // видалємо зайві бічні стінки
+	for (int i = 0; i < m_n; i++) // видалємо зайві бічні стінки
 	{
-		cellsArray[i][LENGHT - 1].wallTop(false);
-		cellsArray[i][LENGHT - 1].isVisited = true;
+		cellsArray[i][m_n - 1].wallTop(false);
+		cellsArray[i][m_n - 1].isVisited = true;
 
 	}
-	for (int j = 0; j < LENGHT; j++) // видалємо зайві бічні стінки
+	for (int j = 0; j < m_n; j++) // видалємо зайві бічні стінки
 	{
-		cellsArray[WIDTH - 1][j].wallLeft(false);
-		cellsArray[WIDTH - 1][j].isVisited = true;
+		cellsArray[m_n - 1][j].wallLeft(false);
+		cellsArray[m_n - 1][j].isVisited = true;
+	}
+	generate();
+}
+Maze::Maze(int n)
+{
+	int x; int y; 
+	m_n = n; 
+	cell_size = (1000 - 100) / m_n;
+	start_pos = (1000 - ((m_n - 1) * cell_size - cell_size / 5)) / 2;
+	for (y = start_pos; y < start_pos + m_n * cell_size; y += cell_size)
+	{
+		for (x = start_pos; x < start_pos + m_n * cell_size; x += cell_size)
+		{
+			MazeCell a(x, y, m_n);
+			cellsArray[(y - start_pos) / cell_size][(x - start_pos) / cell_size] = a;
+
+		}
+	}
+
+	for (int i = 0; i < m_n; i++) // видалємо зайві бічні стінки
+	{
+		cellsArray[i][m_n - 1].wallTop(false);
+		cellsArray[i][m_n - 1].isVisited = true;
+
+	}
+	for (int j = 0; j < m_n; j++) // видалємо зайві бічні стінки
+	{
+		cellsArray[m_n - 1][j].wallLeft(false);
+		cellsArray[m_n - 1][j].isVisited = true;
 	}
 	generate();
 }
 void Maze::draw(RenderWindow& win)
 {
-	for (int y = 0; y < LENGHT; y++)
+	for (int y = 0; y < m_n; y++)
 	{
-		for (int x = 0; x < WIDTH; x++)
+		for (int x = 0; x < m_n; x++)
 		{
 			cellsArray[y][x].draw(win);
 		}
@@ -40,17 +73,18 @@ void Maze::generate() //генерація лабіринту шляхом видалення стін у сітці
 {
 	MazeCell* current = &cellsArray[0][0]; int random;
 	current->isVisited = true;
+	current->dist_f_start = 0;
 	stack <MazeCell*> stack;
 	do
 	{
 		list <MazeCell*> unvisitedNeighbours;
-		int x = ((current->getX() - START_POS) / CELL_SIZE);
-		int y = ((current->getY() - START_POS) / CELL_SIZE);
+		int x = ((current->getX() - start_pos) / cell_size);
+		int y = ((current->getY() - start_pos) / cell_size);
 		cout << "[" << x << "]" << "[" << y << "]" << endl;
 		if ((y > 0) && (!cellsArray[y - 1][x].isVisited)) unvisitedNeighbours.push_back(&cellsArray[y - 1][x]); //перевірка чи є невідвідані сусіди
 		if ((x > 0) && (!cellsArray[y][x - 1].isVisited)) unvisitedNeighbours.push_back(&cellsArray[y][x - 1]);
-		if ((y < WIDTH - 2) && (!cellsArray[y + 1][x].isVisited)) unvisitedNeighbours.push_back(&cellsArray[y + 1][x]);
-		if ((x < LENGHT - 2) && (!cellsArray[y][x + 1].isVisited)) unvisitedNeighbours.push_back(&cellsArray[y][x + 1]);
+		if ((y < m_n - 2) && (!cellsArray[y + 1][x].isVisited)) unvisitedNeighbours.push_back(&cellsArray[y + 1][x]);
+		if ((x < m_n - 2) && (!cellsArray[y][x + 1].isVisited)) unvisitedNeighbours.push_back(&cellsArray[y][x + 1]);
 
 		if (unvisitedNeighbours.size() > 0)
 		{
@@ -72,10 +106,10 @@ void Maze::generate() //генерація лабіринту шляхом видалення стін у сітці
 			}
 
 			chosen->isVisited = true; //тепер сусід стає новою клітинкою
+			chosen->dist_f_start = stack.size();
 			stack.push(chosen);
 			current = chosen;
-			//current->setX(chosen->getX()); 
-			//current->setY(chosen->getY());
+			
 		}
 		else
 		{
@@ -84,23 +118,56 @@ void Maze::generate() //генерація лабіринту шляхом видалення стін у сітці
 		}
 
 	} while (stack.size() > 0);
+	place_finish();
 }
+void Maze::place_finish()
+{
+	MazeCell *furthest = &cellsArray[0][0];
+	for (int y = 0; y < m_n; y++)
+	{
+		if (cellsArray[y][m_n - 2].dist_f_start > furthest->dist_f_start) furthest = &cellsArray[y][m_n - 2];
+		if (cellsArray[y][0].dist_f_start > furthest->dist_f_start) furthest = &cellsArray[y][0];
+	}
+	for (int x = 0; x < m_n; x++)
+	{
+		if (cellsArray[m_n - 2][x].dist_f_start > furthest->dist_f_start) furthest = &cellsArray[m_n - 2][x];
+		if (cellsArray[0][x].dist_f_start > furthest->dist_f_start) furthest = &cellsArray[0][x];
+	}
 
+	if (furthest->getX() == start_pos)
+		furthest->wallLeft(false);
+	else if (furthest->getY() == start_pos)
+		furthest->wallTop(false);
+	else if (furthest->getX() == (m_n - 2) * cell_size + start_pos)
+	{
+		
+		int i = (furthest->getY() - start_pos) / cell_size;
+		int j = (furthest->getX() - start_pos) / cell_size + 1;
+		cellsArray[i][j].wallLeft(false);
+		
+	}
+	else if (furthest->getY() == (m_n - 2) * cell_size + start_pos)
+	{
+		int i = (furthest->getY() - start_pos) / cell_size + 1;
+		int j = (furthest->getX() - start_pos) / cell_size;
+		cellsArray[i][j].wallTop(false);
+		
+	}
+}
 
 void MazeCell::draw(RenderWindow& win)
 {
-	const Vector2f s(CELL_SIZE, CELL_SIZE / 5);
+	const Vector2f s(cell_size, cell_size / 5);
 	RectangleShape rect1;
 	rect1.setPosition(getX(), getY());
 	rect1.setSize(s);
 	rect1.setFillColor(Color::Magenta);
 	RectangleShape rect2;
 	rect2.setPosition(getX(), getY());
-	const Vector2f s1(CELL_SIZE + CELL_SIZE / 5, CELL_SIZE / 5);
+	const Vector2f s1(cell_size * 6 / 5, cell_size / 5);
 	rect2.setSize(s1);
 	rect2.setFillColor(Color::Magenta);
 	rect2.setRotation(90);
-
 
 	if (getWallTop())
 		win.draw(rect1);

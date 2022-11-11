@@ -3,8 +3,9 @@
 
 int main()
 {
-	RenderWindow w(VideoMode(800, 800), "Maze");
-	Player player; Maze a;
+	RenderWindow w(VideoMode(1000, 1000), "Maze");
+	int size = 35;
+	Player player(size); Maze a(size);
 	srand(time(NULL));
 	w.setFramerateLimit(120);
 	while (w.isOpen())
