@@ -80,7 +80,7 @@ void Maze::generate() //генерація лабіринту шляхом видалення стін у сітці
 		list <MazeCell*> unvisitedNeighbours;
 		int x = ((current->getX() - start_pos) / cell_size);
 		int y = ((current->getY() - start_pos) / cell_size);
-		cout << "[" << x << "]" << "[" << y << "]" << endl;
+		//cout << "[" << x << "]" << "[" << y << "]" << endl;
 		if ((y > 0) && (!cellsArray[y - 1][x].isVisited)) unvisitedNeighbours.push_back(&cellsArray[y - 1][x]); //перевірка чи є невідвідані сусіди
 		if ((x > 0) && (!cellsArray[y][x - 1].isVisited)) unvisitedNeighbours.push_back(&cellsArray[y][x - 1]);
 		if ((y < m_n - 2) && (!cellsArray[y + 1][x].isVisited)) unvisitedNeighbours.push_back(&cellsArray[y + 1][x]);
@@ -90,6 +90,7 @@ void Maze::generate() //генерація лабіринту шляхом видалення стін у сітці
 		{
 			MazeCell* chosen;
 			random = rand() % unvisitedNeighbours.size(); //обираємо випадкового невідвіданого сусіда
+			cout << random << endl;
 			list<MazeCell*>::iterator i = unvisitedNeighbours.begin();
 			advance(i, random);
 			chosen = *i;

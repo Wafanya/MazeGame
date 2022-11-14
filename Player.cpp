@@ -56,7 +56,7 @@ void Player::update(RenderWindow& win, Maze a)
 	if (Keyboard::isKeyPressed(Keyboard::Right))m_direction = 2;
 	if (Keyboard::isKeyPressed(Keyboard::Up))m_direction = 3;
 	if (Keyboard::isKeyPressed(Keyboard::Down))m_direction = 4;
-	for (int s = 0; s < 10; s++) {
+	for (int s = 0; s < cell_size; s++) {
 		switch (m_direction)
 		{
 		case 1://LEFT
@@ -120,6 +120,7 @@ int Player::isCol(Maze a, int& z)
 	if ((current->getWallTop() or (nextudx->getWallLeft() && !current->getWallTop() && (m_position.x >= x1 + 1) or nextx->getWallTop() && !current->getWallTop() && (m_position.x >= x1 + cell_size / 5 + 1) or (backy->getWallLeft() && !current->getWallTop() or backx->getWallTop() && !current->getWallTop()) && (m_position.x <= x2 - 1))) && (m_position.y <= y2) && m_direction == 3) return 3;   //верхн€€ граница+1
 
 	if ((nexty->getWallTop() or (!nextddx->getWallLeft() && nextddx->getWallTop() && (m_position.x >= x1 + cell_size / 5 + 1) or !nexty->getWallTop() && nextddx->getWallLeft() && (m_position.x >= x1 + 1) or (backddx->getWallTop() or nexty->getWallLeft() && !nexty->getWallTop()) && (m_position.x <= x2 - 1))) && (m_position.y >= y1 - 1) && m_direction == 4)return 4;   //нижн€€ граница-1
+
 
 
 	return 0;
