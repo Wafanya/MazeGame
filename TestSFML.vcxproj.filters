@@ -27,6 +27,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Frame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Maze.h">
@@ -36,6 +39,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Libraries.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

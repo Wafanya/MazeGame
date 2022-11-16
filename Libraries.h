@@ -9,3 +9,4 @@ using namespace std;
 
 #include "Player.h"
 #include "Maze.h"
+#include "Frame.h"
