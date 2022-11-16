@@ -7,6 +7,5 @@ int main()
 {
 	Frame mf;
 	mf.main_cycle();
-
 	return 0;
 }

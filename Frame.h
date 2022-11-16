@@ -25,7 +25,7 @@ private:
 public:
 	Frame() 
 	{
-		this->size = 30;
+		this->size = 10;
 		//this->w(VideoMode(1000, 1000), "Maze");
 	}
 	Frame(int size)

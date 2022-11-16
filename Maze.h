@@ -37,7 +37,7 @@ private:
 	int m_n; //кількість клітин у лабіринті.
 	int cell_size; //розмір клітини
 	int start_pos; //звідки малювати
-	MazeCell cellsArray[30][30];
+	MazeCell cellsArray[10][10];
 	void generate();
 	void place_finish();
 public:

@@ -90,7 +90,6 @@ void Maze::generate() //генерація лабіринту шляхом видалення стін у сітці
 		{
 			MazeCell* chosen;
 			random = rand() % unvisitedNeighbours.size(); //обираємо випадкового невідвіданого сусіда
-			cout << random << endl;
 			list<MazeCell*>::iterator i = unvisitedNeighbours.begin();
 			advance(i, random);
 			chosen = *i;

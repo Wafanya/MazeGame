@@ -22,6 +22,7 @@ public:
 	void draw(RenderWindow& win);    //промальовка
 	int isCol(Maze a, int& z); //чи вр≥завс€ у ст≥нку
 	void update(RenderWindow& win, Maze a);  //зм≥нювати м≥сцезнаходженн€ гравц€
+	bool isWin(Maze a);
 };
 
 

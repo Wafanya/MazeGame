@@ -87,10 +87,13 @@ void Player::update(RenderWindow& win, Maze a)
 			break;
 		}
 		}
-		draw(win);
+			draw(win);
 	}
 z4:
-	draw(win);
+	if (!isWin(a))
+	{
+		draw(win);
+	}
 	m_direction = 0;
 }
 int Player::isCol(Maze a, int& z)
@@ -124,4 +127,15 @@ int Player::isCol(Maze a, int& z)
 
 
 	return 0;
+}
+bool Player:: isWin(Maze a)
+{
+	if ((m_position.x < start_pos) || (m_position.y<start_pos) || (m_position.x > 900) || (m_position.y > 900)  )
+	{
+		cout << "win"; return true;
+	}
+	else
+	{
+		return false;
+	}
 }
