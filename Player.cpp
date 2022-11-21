@@ -132,7 +132,7 @@ bool Player:: isWin(Maze a)
 {
 	if ((m_position.x < start_pos) || (m_position.y<start_pos) || (m_position.x > 900) || (m_position.y > 900)  )
 	{
-		cout << "win"; return true;
+		 return true;
 	}
 	else
 	{

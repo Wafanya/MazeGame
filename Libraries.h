@@ -4,6 +4,10 @@
 #include <ctime>
 #include <stack>
 #include <list>
+#include <string>
+#include <fstream>
+#include <Windows.h>
+
 using namespace sf;
 using namespace std;
 

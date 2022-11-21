@@ -6,21 +6,16 @@ class Frame
 private:
 	int size;
 	static RenderWindow w;
+	time_t start;
+	time_t cur_it;
+	time_t delt;
+	fstream lb;
+	vector<int> time_res;
 	static int counter;
 	static int choice;
-	/*static const struct ElemInfo {
-		Vector2i m_pos[5];
-		Vector2i m_size[5];
-		Vector2i o_pos;
-		Vector2i p_pos;
-		int t_pos;
-		int win_pos;
-	}ElIn; */
-	const Vector2i m_pos[5] = {Vector2i(50,200), Vector2i(40,300), Vector2i(100,400), Vector2i(45,500), Vector2i(420,300)};
-	//const Vector2i m_size[5] = {Vector2i(600,200), Vector2i(600,200), Vector2i(100,100), Vector2i(100,100), Vector2i(100,100)};
-	/*const Vector2i o_pos;
-	const Vector2i p_pos;*/
-	//const int t_pos;
+	const Vector2i m_pos[6] = {Vector2i(50,200), Vector2i(40,300), Vector2i(140, 440), Vector2i(60,500), Vector2i(45,600), Vector2i(420,300)};
+	/*const Vector2i o_pos;*/
+	const Vector2i t_pos = Vector2i(700, 40);
 	//const int win_pos;
 public:
 	Frame() 
@@ -33,15 +28,10 @@ public:
 		this->size = size;
 	};
 	void menu();
-	void options();
-	void pause();
+	void info();
 	void timer();
 	void game_player(Player& player, Maze& a);
-	void win();
+	void leadboard();
 	void main_cycle();
-	/*RenderWindow& operator= (RenderWindow a(VideoMode vm, const char* s))
-	{
-		this->w.create(vm, s);
-	}*/
 };
 
