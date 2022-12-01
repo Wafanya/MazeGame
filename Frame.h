@@ -20,7 +20,7 @@ private:
 public:
 	Frame() 
 	{
-		this->size = 10;
+		this->size = 5;
 		//this->w(VideoMode(1000, 1000), "Maze");
 	}
 	Frame(int size)
@@ -30,7 +30,7 @@ public:
 	void menu();
 	void info();
 	void timer();
-	void game_player(Player& player, Maze& a);
+	void game_player(Player& player, const Maze& a);
 	void leadboard();
 	void main_cycle();
 };

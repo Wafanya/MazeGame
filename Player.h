@@ -3,12 +3,12 @@
 
 class Maze;
 
-class Player     //клас гравець
+class Player     
 {
 	Vector2i m_position;
 	Vector2i cell;
 
-	int m_n; //к≥льк≥сть кл≥тин у лаб≥ринт≥. маЇ сп≥впадати з к≥льк≥стю в лаб≥ринт≥, очевидно. використовуЇтьс€ дл€ п≥драхуванн€ розм≥р≥в ≥ тд
+	int m_n; //к≥льк≥сть кл≥тин у лаб≥ринт≥. використовуЇтьс€ дл€ п≥драхуванн€ розм≥р≥в ≥ тд
 	int cell_size;
 	int start_pos;
 	int size;
@@ -17,12 +17,12 @@ public:
 	Player();
 	Player(int n);
 	int getcell();
-	int getX() { return m_position.x; };
-	int getY() { return m_position.y; };
-	void draw(RenderWindow& win);    //промальовка
-	int isCol(Maze a, int& z); //чи вр≥завс€ у ст≥нку
-	void update(RenderWindow& win, Maze a);  //зм≥нювати м≥сцезнаходженн€ гравц€
-	bool isWin(Maze a);
+	int getX() const { return m_position.x; };
+	int getY() const { return m_position.y; };
+	void draw(RenderWindow& win) const;    //промальовка
+	int isCol(const Maze &a); //чи вр≥завс€ у ст≥нку
+	void update(RenderWindow& win, const Maze &a);  //зм≥нювати м≥сцезнаходженн€ гравц€
+	bool isWin(const Maze &a) const;
 };
 
 

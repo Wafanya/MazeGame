@@ -5,7 +5,7 @@
 
 int main()
 {
-	Frame mf;
+	Frame mf(4);
 	mf.main_cycle();
 	return 0;
 }

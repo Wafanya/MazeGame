@@ -2,14 +2,14 @@
 
 Maze::Maze()
 {
-	int x; int y; 
-	m_n = 6; 
+	m_n = 6;
+	cellsArray.resize(m_n, vector<MazeCell>(m_n));
 	cell_size = (1000 - 100) / m_n;
 	start_pos = (1000 - ((m_n - 1) * cell_size - cell_size / 5)) / 2;
 
-	for (y = start_pos; y < start_pos + m_n * cell_size; y += cell_size)
+	for (int y = start_pos; y < start_pos + m_n * cell_size; y += cell_size)
 	{
-		for (x = start_pos; x < start_pos + m_n * cell_size; x += cell_size)
+		for (int x = start_pos; x < start_pos + m_n * cell_size; x += cell_size)
 		{
 			MazeCell a(x, y, m_n);
 			cellsArray[(y - start_pos) / cell_size][(x - start_pos) / cell_size] = a;
@@ -32,13 +32,13 @@ Maze::Maze()
 }
 Maze::Maze(int n)
 {
-	int x; int y; 
 	m_n = n; 
+	cellsArray.resize(m_n, vector<MazeCell>(m_n));
 	cell_size = (1000 - 100) / m_n;
 	start_pos = (1000 - ((m_n - 1) * cell_size - cell_size / 5)) / 2;
-	for (y = start_pos; y < start_pos + m_n * cell_size; y += cell_size)
+	for (int y = start_pos; y < start_pos + m_n * cell_size; y += cell_size)
 	{
-		for (x = start_pos; x < start_pos + m_n * cell_size; x += cell_size)
+		for (int x = start_pos; x < start_pos + m_n * cell_size; x += cell_size)
 		{
 			MazeCell a(x, y, m_n);
 			cellsArray[(y - start_pos) / cell_size][(x - start_pos) / cell_size] = a;
@@ -59,7 +59,8 @@ Maze::Maze(int n)
 	}
 	generate();
 }
-void Maze::draw(RenderWindow& win)
+Maze::~Maze(){}
+void Maze::draw(RenderWindow& win) const
 {
 	for (int y = 0; y < m_n; y++)
 	{
@@ -71,7 +72,8 @@ void Maze::draw(RenderWindow& win)
 }
 void Maze::generate() //генерація лабіринту шляхом видалення стін у сітці
 {
-	MazeCell* current = &cellsArray[0][0]; int random;
+	MazeCell* current = &cellsArray[0][0];
+	int random;
 	current->isVisited = true;
 	current->dist_f_start = 0;
 	stack <MazeCell*> stack;
@@ -155,7 +157,7 @@ void Maze::place_finish()
 	}
 }
 
-void MazeCell::draw(RenderWindow& win)
+void MazeCell::draw(RenderWindow& win) const
 {
 	const Vector2f s(cell_size, cell_size / 5);
 	RectangleShape rect1;

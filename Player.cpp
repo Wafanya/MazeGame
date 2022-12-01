@@ -18,11 +18,11 @@ Player::Player(int n)
 	start_pos = (1000 - ((m_n - 1) * cell_size - cell_size / 5)) / 2;
 	size = cell_size / 5;
 
-	m_direction = 1;
+	//m_direction = 1;
 	m_position.x = start_pos + cell_size / 2.5;
 	m_position.y = cell_size / 5 + start_pos + cell_size / 2.5;
 }
-void Player::draw(RenderWindow& win)
+void Player::draw(RenderWindow& win) const
 {
 	CircleShape circ;
 	circ.setRadius(size);
@@ -32,7 +32,7 @@ void Player::draw(RenderWindow& win)
 	circ.move(m_position.x, m_position.y);
 	win.draw(circ);
 }
-int Player::getcell()
+int Player::getcell() 
 {
 	for (int i = start_pos, j = 0; i <= start_pos + cell_size * (m_n); i += cell_size, j++)
 	{
@@ -48,7 +48,7 @@ int Player::getcell()
 m1:
 	return cell.x, cell.y;
 }
-void Player::update(RenderWindow& win, Maze a)
+void Player::update(RenderWindow& win, const Maze &a)
 {
 	int SPEED = 1;
 	//задаємо дію на кожну стрілочку
@@ -61,52 +61,53 @@ void Player::update(RenderWindow& win, Maze a)
 		{
 		case 1://LEFT
 		{
-			if (isCol(a, m_direction) == 1) { m_position.x = m_position.x; goto z4; }
+			if (isCol(a) == 1) {
+				m_position.x = m_position.x; goto z4; }
 			else { m_position.x -= SPEED; }
 			break;
 		}
 		case 2://RIGHT
 		{
-			if (isCol(a, m_direction) == 2) { m_position.x = m_position.x; goto z4; }
+			if (isCol(a) == 2) {
+				m_position.x = m_position.x; goto z4; }
 			else { m_position.x += SPEED; }
 			break;
 		}
 		case 3://UP
 		{
-			if (isCol(a, m_direction) == 3)
-			{
-				m_position.y = m_position.y; goto z4;
-			}
+			if (isCol(a) == 3)
+			{m_position.y = m_position.y; goto z4;}
 			else { m_position.y -= SPEED; }
 			break;
 		}
 		case 4://DOWN
 		{
-			if (isCol(a, m_direction) == 4) { m_position.y = m_position.y; goto z4; }
+			if (isCol(a) == 4) 
+			{ m_position.y = m_position.y; goto z4; }
 			else { m_position.y += SPEED; }
 			break;
 		}
 		}
 			draw(win);
 	}
-z4:
+ z4:
 	if (!isWin(a))
 	{
 		draw(win);
 	}
 	m_direction = 0;
 }
-int Player::isCol(Maze a, int& z)
+int Player::isCol(const Maze &a)
 {
 	getcell();
-	MazeCell* current = &a.cellsArray[cell.y][cell.x];//"."
-	MazeCell* backddx = &a.cellsArray[cell.y + 1][cell.x - 1];//"</"
-	MazeCell* nextudx = &a.cellsArray[cell.y - 1][cell.x + 1];//"/>"
-	MazeCell* nextddx = &a.cellsArray[cell.y + 1][cell.x + 1];//"\>"
-	MazeCell* backx = &a.cellsArray[cell.y][cell.x - 1];//"<"
-	MazeCell* backy = &a.cellsArray[cell.y - 1][cell.x];//"^"
-	MazeCell* nextx = &a.cellsArray[cell.y][cell.x + 1];//">"
-	MazeCell* nexty = &a.cellsArray[cell.y + 1][cell.x];//"<"
+	const MazeCell* current = &a.cellsArray[cell.y][cell.x];//"."
+	const MazeCell* backddx = &a.cellsArray[cell.y + 1][cell.x - 1];//"</"
+	const MazeCell* nextudx = &a.cellsArray[cell.y - 1][cell.x + 1];//"/>"
+	const MazeCell* nextddx = &a.cellsArray[cell.y + 1][cell.x + 1];//"\>"
+	const MazeCell* backx = &a.cellsArray[cell.y][cell.x - 1];//"<"
+	const MazeCell* backy = &a.cellsArray[cell.y - 1][cell.x];//"^"
+	const MazeCell* nextx = &a.cellsArray[cell.y][cell.x + 1];//">"
+	const MazeCell* nexty = &a.cellsArray[cell.y + 1][cell.x];//"<"
 
 	int y1 = start_pos + (cell.y + 1) * cell_size - size;
 	int y2 = start_pos + cell.y * cell_size + cell_size / 5 + size;
@@ -128,7 +129,7 @@ int Player::isCol(Maze a, int& z)
 
 	return 0;
 }
-bool Player:: isWin(Maze a)
+bool Player:: isWin(const Maze &a) const
 {
 	if ((m_position.x < start_pos) || (m_position.y<start_pos) || (m_position.x > 900) || (m_position.y > 900)  )
 	{

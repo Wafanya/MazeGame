@@ -12,7 +12,7 @@ s:
 	counter = 0;
 	srand(time(NULL));
 	Player player(size);
-	Maze a(size);
+	const Maze a(size);
 	w.setFramerateLimit(120);
 	while (w.isOpen() and choice!=-1)
 	{
@@ -70,7 +70,6 @@ s:
 
 void Frame::menu()
 {
-
 	Texture pl_pas;
 	pl_pas.loadFromFile("Img/Play pas.png");
 	if (!pl_pas.loadFromFile("Img/Play pas.png"))
@@ -199,11 +198,11 @@ void Frame::menu()
 		cout << "error";
 	}
 	logo.setSmooth(true);
-	sf::Sprite spr_logo;
+	Sprite spr_logo;
 	spr_logo.setTexture(logo);
 	spr_logo.setPosition(this->m_pos[5].x, this->m_pos[5].y);
 	spr_logo.setScale(Vector2f(1, 1));
-	spr_logo.setColor(sf::Color(139, 0, 255));
+	spr_logo.setColor(Color(139, 0, 255));
 	
 	w.draw(spr_logo);
 
@@ -315,8 +314,7 @@ void Frame::timer()
 	w.draw(t_ti);
 }
 
-
-void Frame::game_player(Player& player, Maze& a)
+void Frame::game_player(Player& player, const Maze& a)
 {
 	w.clear(Color(139, 0, 255));
 	a.draw(w);
@@ -402,7 +400,7 @@ void Frame::leadboard()
 		cout << "error";
 	}
 	lead.setSmooth(true);
-	sf::Sprite spr_lead;
+	Sprite spr_lead;
 	spr_lead.setTexture(lead);
 	spr_lead.setPosition(150, 200);
 	spr_lead.setScale(Vector2f(1.1, 1.1));
