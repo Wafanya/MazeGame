@@ -12,7 +12,7 @@ s:
 	counter = 0;
 	srand(time(NULL));
 	Player player(size);
-	const Maze a(size);
+	const Maze maze(size);
 	w.setFramerateLimit(120);
 	while (w.isOpen() and choice!=-1)
 	{
@@ -26,7 +26,8 @@ s:
 		if (Keyboard::isKeyPressed(Keyboard::Escape))
 		{
 			choice = 0;
-			goto s;
+			main_cycle();
+			//goto s;
 		}
 		if (choice == 0);
 		{
@@ -34,18 +35,18 @@ s:
 		}
 		if (choice == 1)
 		{
-			game_player(player, a);
+			game_player(player, maze);
 			cur_it = time(NULL);
 			delt = difftime(cur_it, start);
 			timer();
-			if (player.isWin(a) == true)
+			if (player.isWin(maze)) //if WIN
 			{
 				string s_ti = to_string(delt);
 				lb.open("leadboard.txt", ios::in | ios::app | ios::out);
 				if (!lb.is_open()) { cout << "File hasn't been opened"; }
 				lb << delt << endl;
 				lb.close();
-				leadboard();
+				//leadboard(); //                                                    рср аюц
 				Sleep(2500);
 				choice = 0;
 				goto s;
@@ -415,7 +416,6 @@ void Frame::leadboard()
 	//Sleep(5000);
 	time_res.clear();
 }
-
 void Frame::info()
 {
 	Font f_ab;

@@ -29,13 +29,15 @@ Maze::Maze()
 		cellsArray[m_n - 1][j].isVisited = true;
 	}
 	generate();
-}
+} 
 Maze::Maze(int n)
 {
 	m_n = n; 
-	cellsArray.resize(m_n, vector<MazeCell>(m_n));
 	cell_size = (1000 - 100) / m_n;
 	start_pos = (1000 - ((m_n - 1) * cell_size - cell_size / 5)) / 2;
+	MazeCell a(start_pos, start_pos, m_n);
+	cellsArray.resize(m_n,  vector<MazeCell>(m_n,a));
+	
 	for (int y = start_pos; y < start_pos + m_n * cell_size; y += cell_size)
 	{
 		for (int x = start_pos; x < start_pos + m_n * cell_size; x += cell_size)

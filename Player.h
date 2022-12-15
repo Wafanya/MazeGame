@@ -19,6 +19,7 @@ public:
 	int getcell();
 	int getX() const { return m_position.x; };
 	int getY() const { return m_position.y; };
+	int getDir() const { return m_direction; };
 	void draw(RenderWindow& win) const;    //промальовка
 	int isCol(const Maze &a); //чи вр≥завс€ у ст≥нку
 	void update(RenderWindow& win, const Maze &a);  //зм≥нювати м≥сцезнаходженн€ гравц€
