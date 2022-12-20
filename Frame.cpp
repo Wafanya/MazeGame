@@ -29,7 +29,7 @@ s:
 			main_cycle();
 			//goto s;
 		}
-		if (choice == 0);
+		if (choice == 0)
 		{
 			menu();
 		}
@@ -46,7 +46,7 @@ s:
 				if (!lb.is_open()) { cout << "File hasn't been opened"; }
 				lb << delt << endl;
 				lb.close();
-				//leadboard(); //                                                    рср аюц
+				leadboard(); //                                                    рср аюц
 				Sleep(2500);
 				choice = 0;
 				goto s;

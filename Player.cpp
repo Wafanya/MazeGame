@@ -5,7 +5,7 @@ Player::Player()
 	m_n = 6; 
 	cell_size = (1000 - 100) / m_n;
 	start_pos = (1000 - ((m_n - 1) * cell_size - cell_size / 5)) / 2;
-	size = cell_size / 5;
+	size = cell_size / 4;
 	m_position.x = start_pos + cell_size / 2.5;
 	m_position.y = cell_size / 5 + start_pos + cell_size / 2.5;
 }
@@ -14,18 +14,32 @@ Player::Player(int n)
 	m_n = n; 
 	cell_size = (1000 - 100) / m_n;
 	start_pos = (1000 - ((m_n - 1) * cell_size - cell_size / 5)) / 2;
-	size = cell_size / 5;
+	size = cell_size / 4;
 	m_position.x = start_pos + cell_size / 2.5;
 	m_position.y = cell_size / 5 + start_pos + cell_size / 2.5;
 }
-void Player::draw(RenderWindow& win) const
+void Player::draw(RenderWindow& win)
 {
-	CircleShape circ;
-	circ.setRadius(size);
-	circ.setOrigin(size, size);
-	circ.setFillColor(Color::Cyan);
-	circ.move(m_position.x, m_position.y);
-	win.draw(circ);
+	Texture text;
+	text.loadFromFile("CATS.png");
+	text.setSmooth(true);
+	Sprite sprite;
+	sprite.setTexture(text);
+
+	if (animation.x >= 4)animation.x -= 4;
+	sprite.setTextureRect(IntRect(0, 288 * animation.x, 261, 288));
+	sprite.setOrigin(130.5, 144);
+
+	sprite.setScale(cell_size / 500.0, cell_size / 500.0);
+	sprite.move(m_position.x, m_position.y);
+	win.draw(sprite);
+
+	//CircleShape circ;
+	//circ.setRadius(size);
+	//circ.setOrigin(size, size);
+	//circ.setFillColor(Color::Cyan);
+	//circ.move(m_position.x, m_position.y);
+	//win.draw(circ);
 }
 int Player::getcell() 
 {
@@ -36,7 +50,7 @@ int Player::getcell()
 		{
 			if ((i <= getX() && getX() <= i + cell_size) && (m <= getY() && getY() <= m + cell_size))
 			{
-				cout << j << k << endl;
+				//cout << j << k << endl;
 				if (j > m_n - 2 || k > m_n - 2) return 0; 
 				cell.x = j; cell.y = k;
 				return 0;
@@ -49,11 +63,12 @@ void Player::update(RenderWindow& win, const Maze &a)
 {
 	int SPEED = 1;
 	//задаємо дію на кожну стрілочку
-	if (Keyboard::isKeyPressed(Keyboard::Left))m_direction = 1;
-	if (Keyboard::isKeyPressed(Keyboard::Right))m_direction = 2;
-	if (Keyboard::isKeyPressed(Keyboard::Up))m_direction = 3;
-	if (Keyboard::isKeyPressed(Keyboard::Down))m_direction = 4;
-	for (int s = 0; s < cell_size; s++) {
+	if (Keyboard::isKeyPressed(Keyboard::Left)) { m_direction = 1; animation.y++; }
+	if (Keyboard::isKeyPressed(Keyboard::Right)) { m_direction = 2; animation.y++; }
+	if (Keyboard::isKeyPressed(Keyboard::Up)) { m_direction = 3; animation.y++; }
+	if (Keyboard::isKeyPressed(Keyboard::Down)) { m_direction = 4; animation.y++; }
+
+	for (int s = 0; s <cell_size; s++) {
 		switch (m_direction)
 		{
 		case 1://LEFT
@@ -91,19 +106,17 @@ void Player::update(RenderWindow& win, const Maze &a)
 			break;
 		}
 		}
-		draw(win);
 	}
 z4:
-
+	if (animation.y > 8) {
+		animation.y = 0;
+		animation.x++;
+	}
 	if (!isWin(a))
 	{
 		draw(win);
 	}
-	else
-	{
-		cout << "WIN";
-	}
-	
+	m_direction = 0;
 }
 int Player::isCol(const Maze &a)
 {
@@ -135,9 +148,11 @@ int Player::isCol(const Maze &a)
 
 	return 0;
 }
+
+
 bool Player::isWin(const Maze &a) const
 {
-	if ((m_position.x < start_pos) || (m_position.y<start_pos) || (m_position.x > 900) || (m_position.y > 900)  )
+	if ((m_position.x < start_pos) || (m_position.y<start_pos) || (m_position.x > cell_size / 5 + start_pos + cell_size * (m_n)) || (m_position.y > cell_size / 5 + start_pos + cell_size * (m_n))  )
 	{
 		 return true;
 	}
