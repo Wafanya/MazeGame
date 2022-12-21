@@ -1,12 +1,8 @@
 #include "Libraries.h"
 
-Maze::Maze()
+Maze::Maze(): m_n(6)
 {
-	m_n = 6;
 	cellsArray.resize(m_n, vector<MazeCell>(m_n));
-	cell_size = (1000 - 100) / m_n;
-	start_pos = (1000 - ((m_n - 1) * cell_size - cell_size / 5)) / 2;
-
 	for (int y = start_pos; y < start_pos + m_n * cell_size; y += cell_size)
 	{
 		for (int x = start_pos; x < start_pos + m_n * cell_size; x += cell_size)
@@ -30,15 +26,12 @@ Maze::Maze()
 	}
 	generate();
 } 
-Maze::Maze(int n)
+Maze::Maze(int n): m_n(n)
 {
-	m_n = n; 
-	cell_size = (1000 - 100) / m_n;
-	start_pos = (1000 - ((m_n - 1) * cell_size - cell_size / 5)) / 2;
 	MazeCell a(start_pos, start_pos, m_n);
 	cellsArray.resize(m_n,  vector<MazeCell>(m_n,a));
 	
-	for (int y = start_pos; y < start_pos + m_n * cell_size; y += cell_size)
+	for (int y = start_pos; y < start_pos + m_n * cell_size; y += cell_size) //заповнюємо вектор
 	{
 		for (int x = start_pos; x < start_pos + m_n * cell_size; x += cell_size)
 		{
@@ -60,6 +53,18 @@ Maze::Maze(int n)
 		cellsArray[m_n - 1][j].isVisited = true;
 	}
 	generate();
+}
+Maze::Maze(const Maze& maze): m_n(maze.m_n)
+{
+	cellsArray.resize(m_n, vector<MazeCell>(m_n));
+	for (int y = start_pos; y < start_pos + m_n * cell_size; y += cell_size) //заповнюємо вектор
+	{
+		for (int x = start_pos; x < start_pos + m_n * cell_size; x += cell_size)
+		{
+			cellsArray[(y - start_pos) / cell_size][(x - start_pos) / cell_size] = maze.cellsArray[(y - start_pos) / cell_size][(x - start_pos) / cell_size];
+		}
+	}
+
 }
 Maze::~Maze(){}
 void Maze::draw(RenderWindow& win) const
@@ -158,7 +163,6 @@ void Maze::place_finish()
 		
 	}
 }
-
 void MazeCell::draw(RenderWindow& win) const
 {
 	const Vector2f s(cell_size, cell_size / 5);

@@ -18,15 +18,8 @@ private:
 	const Vector2i t_pos = Vector2i(700, 40);
 	//const int win_pos;
 public:
-	Frame() 
-	{
-		this->size = 5;
-		//this->w(VideoMode(1000, 1000), "Maze");
-	}
-	Frame(int size)
-	{
-		this->size = size;
-	};
+	Frame(): size(5) {}
+	Frame(int size): size(size) {};
 	void menu();
 	void info();
 	void timer();
