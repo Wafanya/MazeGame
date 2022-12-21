@@ -4,7 +4,6 @@ RenderWindow Frame::w(VideoMode(1000, 1000), "Maze");
 int Frame::counter = 0;
 int Frame::choice = 0;
 
-
 void Frame::main_cycle()
 {
 	
@@ -295,7 +294,6 @@ void Frame::menu()
 	w.setKeyRepeatEnabled(true);
 }
 
-
 void Frame::timer()
 {
 	Font f_ti;
@@ -416,6 +414,7 @@ void Frame::leadboard()
 	//Sleep(5000);
 	time_res.clear();
 }
+
 void Frame::info()
 {
 	Font f_ab;

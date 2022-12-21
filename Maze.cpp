@@ -15,13 +15,13 @@ Maze::Maze(): m_n(6)
 
 	for (int i = 0; i < m_n; i++) // видалємо зайві бічні стінки
 	{
-		cellsArray[i][m_n - 1].wallTop(false);
+		cellsArray[i][m_n - 1].setWallTop(false);
 		cellsArray[i][m_n - 1].isVisited = true;
 
 	}
 	for (int j = 0; j < m_n; j++) // видалємо зайві бічні стінки
 	{
-		cellsArray[m_n - 1][j].wallLeft(false);
+		cellsArray[m_n - 1][j].setWallLeft(false);
 		cellsArray[m_n - 1][j].isVisited = true;
 	}
 	generate();
@@ -43,13 +43,13 @@ Maze::Maze(int n): m_n(n)
 
 	for (int i = 0; i < m_n; i++) // видалємо зайві бічні стінки
 	{
-		cellsArray[i][m_n - 1].wallTop(false);
+		cellsArray[i][m_n - 1].setWallTop(false);
 		cellsArray[i][m_n - 1].isVisited = true;
 
 	}
 	for (int j = 0; j < m_n; j++) // видалємо зайві бічні стінки
 	{
-		cellsArray[m_n - 1][j].wallLeft(false);
+		cellsArray[m_n - 1][j].setWallLeft(false);
 		cellsArray[m_n - 1][j].isVisited = true;
 	}
 	generate();
@@ -104,13 +104,13 @@ void Maze::generate() //генерація лабіринту шляхом видалення стін у сітці
 			chosen = *i;
 			if (current->getX() == chosen->getX()) //зносимо між ними стінку
 			{
-				if (current->getY() > chosen->getY()) { current->wallTop(false); }
-				else { chosen->wallTop(false); }
+				if (current->getY() > chosen->getY()) { current->setWallTop(false); }
+				else { chosen->setWallTop(false); }
 			}
 			else
 			{
-				if (current->getX() > chosen->getX()) { current->wallLeft(false); }
-				else { chosen->wallLeft(false); }
+				if (current->getX() > chosen->getX()) { current->setWallLeft(false); }
+				else { chosen->setWallLeft(false); }
 
 			}
 
@@ -144,22 +144,22 @@ void Maze::place_finish()
 	}
 
 	if (furthest->getX() == start_pos)
-		furthest->wallLeft(false);
+		furthest->setWallLeft(false);
 	else if (furthest->getY() == start_pos)
-		furthest->wallTop(false);
+		furthest->setWallTop(false);
 	else if (furthest->getX() == (m_n - 2) * cell_size + start_pos)
 	{
 		
 		int i = (furthest->getY() - start_pos) / cell_size;
 		int j = (furthest->getX() - start_pos) / cell_size + 1;
-		cellsArray[i][j].wallLeft(false);
+		cellsArray[i][j].setWallLeft(false);
 		
 	}
 	else if (furthest->getY() == (m_n - 2) * cell_size + start_pos)
 	{
 		int i = (furthest->getY() - start_pos) / cell_size + 1;
 		int j = (furthest->getX() - start_pos) / cell_size;
-		cellsArray[i][j].wallTop(false);
+		cellsArray[i][j].setWallTop(false);
 		
 	}
 }

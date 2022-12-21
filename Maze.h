@@ -16,20 +16,21 @@ public:
 	int dist_f_start;
 	MazeCell() : m_n(6) { coords.x = cell_size, coords.y = cell_size; };
 	MazeCell(int x, int y, int n): m_n(n) { coords.x = x; coords.y = y; };
+	MazeCell(const MazeCell& cell) 
+		: m_n(cell.m_n), m_wallTop(cell.m_wallTop), m_wallLeft(cell.m_wallLeft) 
+	{ coords.x = cell.getX(); coords.y = cell.getY(); };
 	void draw(RenderWindow& win) const;
-
+	
 	int getX() const { return coords.x; };
 	int getY() const { return coords.y; };
-
-	void setX(int x) { coords.x = x; };
-	void setY(int y) { coords.y = y; };
+	MazeCell& setX(int x) { coords.x = x; return *this; };
+	MazeCell& setY(int y) { coords.y = y; return *this; };
 
 	
 	bool getWallTop() const { return m_wallTop; };
 	bool getWallLeft() const { return m_wallLeft; };
-
-	void wallTop(bool f) { m_wallTop = f; };
-	void wallLeft(bool f) { m_wallLeft = f; };
+	MazeCell& setWallTop(bool f) { m_wallTop = f; return *this; };
+	MazeCell& setWallLeft(bool f) { m_wallLeft = f; return *this; };
 
 };
 
