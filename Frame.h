@@ -18,6 +18,13 @@ private:
 	const Vector2i t_pos = Vector2i(700, 40);
 	//const int win_pos;
 public:
+	Frame(const Frame& a);
+	Frame& setSize(int size_o) { size = size_o; return *this; };
+	int getSize() { return this->size; };
+	~Frame() { };
+	void static check_m_choice();
+	void print();
+
 	Frame(): size(5) {}
 	Frame(int size): size(size) {};
 	void menu();

@@ -38,7 +38,7 @@ s:
 			cur_it = time(NULL);
 			delt = difftime(cur_it, start);
 			timer();
-			if (player.isWin(maze)) //if WIN
+			if (player.isWin()) //if WIN
 			{
 				string s_ti = to_string(delt);
 				lb.open("leadboard.txt", ios::in | ios::app | ios::out);
@@ -66,6 +66,25 @@ s:
 
 		w.display();
 	}
+}
+
+void Frame::check_m_choice()
+{
+	cout << choice << endl;
+}
+
+Frame::Frame(const Frame& a)
+{
+	this->size = a.size;
+	this->start = a.start;
+	this->cur_it = a.cur_it;
+	this->delt = a.cur_it;
+	this->time_res = a.time_res;
+}
+
+void Frame::print()
+{
+	cout << size << endl;
 }
 
 void Frame::menu()

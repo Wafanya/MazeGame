@@ -11,6 +11,7 @@
 using namespace sf;
 using namespace std;
 
+#include "Entity.h"
 #include "Player.h"
 #include "Maze.h"
 #include "Frame.h"

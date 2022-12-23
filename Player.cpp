@@ -1,23 +1,20 @@
 #include "Libraries.h"
 
-Player::Player()
+Player::Player() : Entity()
 {
-	m_n = 6; 
-	cell_size = (1000 - 100) / m_n;
-	start_pos = (1000 - ((m_n - 1) * cell_size - cell_size / 5)) / 2;
-	size = cell_size / 4;
-	m_position.x = start_pos + cell_size / 2.5;
-	m_position.y = cell_size / 5 + start_pos + cell_size / 2.5;
+	m_direction = 3;
 }
-Player::Player(int n)
+Player::Player(int n): Entity(n)
 {
-	m_n = n; 
-	cell_size = (1000 - 100) / m_n;
-	start_pos = (1000 - ((m_n - 1) * cell_size - cell_size / 5)) / 2;
-	size = cell_size / 4;
-	m_position.x = start_pos + cell_size / 2.5;
-	m_position.y = cell_size / 5 + start_pos + cell_size / 2.5;
+	m_direction = 0;
 }
+Player::Player(const Player& plyr): m_direction(plyr.m_direction){
+	this->start_pos = plyr.start_pos;
+	this->m_position = plyr.m_position;
+	this->cell = plyr.cell;
+}
+
+
 void Player::draw(RenderWindow& win)
 {
 	Texture text;
@@ -33,31 +30,8 @@ void Player::draw(RenderWindow& win)
 	sprite.setScale(cell_size / 500.0, cell_size / 500.0);
 	sprite.move(m_position.x, m_position.y);
 	win.draw(sprite);
+}
 
-	//CircleShape circ;
-	//circ.setRadius(size);
-	//circ.setOrigin(size, size);
-	//circ.setFillColor(Color::Cyan);
-	//circ.move(m_position.x, m_position.y);
-	//win.draw(circ);
-}
-int Player::getcell() 
-{
-	//cout << getX() << "|" << getY() << endl;
-	for (int i = start_pos, j = 0; i <= start_pos + cell_size * (m_n); i += cell_size, j++)
-	{
-		for (int m = start_pos + cell_size / 5, k = 0; m <= cell_size / 5 + start_pos + cell_size * (m_n); m += cell_size, k++)
-		{
-			if ((i <= getX() && getX() <= i + cell_size) && (m <= getY() && getY() <= m + cell_size))
-			{
-				//cout << j << k << endl;
-				if (j > m_n - 2 || k > m_n - 2) return 0; 
-				cell.x = j; cell.y = k;
-				return 0;
-			}
-		}
-	}
-}
 
 void Player::update(RenderWindow& win, const Maze &a)
 {
@@ -68,7 +42,7 @@ void Player::update(RenderWindow& win, const Maze &a)
 	if (Keyboard::isKeyPressed(Keyboard::Up)) { m_direction = 3; animation.y++; }
 	if (Keyboard::isKeyPressed(Keyboard::Down)) { m_direction = 4; animation.y++; }
 
-	for (int s = 0; s <cell_size; s++) {
+	for (int s = 0; s <cell_size/6; s++) {
 		switch (m_direction)
 		{
 		case 1://LEFT
@@ -108,19 +82,19 @@ void Player::update(RenderWindow& win, const Maze &a)
 		}
 	}
 z4:
-	if (animation.y > 8) {
+	if (animation.y > 6) {
 		animation.y = 0;
 		animation.x++;
 	}
-	if (!isWin(a))
+	if (!isWin())
 	{
 		draw(win);
 	}
 	m_direction = 0;
 }
-int Player::isCol(const Maze &a)
+int Player::isCol(const Maze& a)
 {
-	getcell();
+	Fcell();
 	const MazeCell* current = &a.cellsArray[cell.y][cell.x];//"."
 	const MazeCell* backddx = &a.cellsArray[cell.y + 1][abs(cell.x - 1)];//"</"
 	const MazeCell* nextudx = &a.cellsArray[abs(cell.y - 1)][cell.x + 1];  //"/>" 
@@ -135,7 +109,7 @@ int Player::isCol(const Maze &a)
 	int x1 = start_pos + (cell.x + 1) * cell_size - cell_size / 5 - size;
 	int x2 = start_pos + cell.x * cell_size + size;
 
-	//cout << x2 << ' ' << x1 << ' ' << y2 << ' ' << y1 << ' ' << getX() << ' ' << getY() << ' ' << cell.y << ' ' << cell.x << ' '<< endl;
+	//cout << x2 << ' ' << x1 << ' ' << y2 << ' ' << y1 << ' ' << getX() << ' ' << getY() << ' ' << cell.y << ' ' << cell.x << ' ' << endl;
 
 	if ((current->getWallLeft() or ((backddx->getWallTop() && !nexty->getWallTop() or nexty->getWallLeft() && !current->getWallLeft()) && (m_position.y >= y1 + 1) or (backx->getWallTop() && !current->getWallTop() or backy->getWallLeft() && !current->getWallLeft()) && (m_position.y <= y2 - 1))) && (m_position.x <= x2) && m_direction == 1)return 1;   //левая граница +2
 
@@ -148,9 +122,7 @@ int Player::isCol(const Maze &a)
 
 	return 0;
 }
-
-
-bool Player::isWin(const Maze &a) const
+bool Player::isWin() const
 {
 	if ((m_position.x < start_pos) || (m_position.y<start_pos) || (m_position.x > cell_size / 5 + start_pos + cell_size * (m_n)) || (m_position.y > cell_size / 5 + start_pos + cell_size * (m_n))  )
 	{

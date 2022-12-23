@@ -1,3 +1,5 @@
+#pragma once
+#include "Libraries.h"
 
 class Date
 {
@@ -7,7 +9,7 @@ public:
 	Date() : dd(21), mm(12), yy(2022) {};
 	Date(int d, int m, int y) : dd(d), mm(m), yy(y) {};
 	Date(const Date& date): dd(date.dd), mm(date.mm), yy(date.yy) {};
-	~Date();
+	~Date() {};
 	void print();
 
 	Date& setDay(int day) { dd = day; return *this; };
