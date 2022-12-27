@@ -182,3 +182,11 @@ void MazeCell::draw(RenderWindow& win) const
 	if (getWallLeft())
 		win.draw(rect2);
 }
+vector <MazeCell> Maze:: operator[](int i)
+{
+	if (i >= cellsArray.size()) {
+		cout << "Array index out of bound, exiting";
+		exit(0);
+	}
+	return cellsArray[i];
+};

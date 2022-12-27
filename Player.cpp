@@ -17,6 +17,7 @@ Player::Player(const Player& plyr): m_direction(plyr.m_direction){
 
 void Player::draw(RenderWindow& win)
 {
+	//cout << "Draw for Player" << endl;
 	Texture text;
 	text.loadFromFile("CATS.png");
 	text.setSmooth(true);

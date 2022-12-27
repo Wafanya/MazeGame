@@ -1,31 +1,5 @@
 #include "Libraries.h"
 
-
-Entity::Entity(): m_n(6)
-{
-	cell_size = (1000 - 100) / m_n;
-	start_pos = (1000 - ((m_n - 1) * cell_size - cell_size / 5)) / 2;
-	size = cell_size / 4;
-	m_position.x = start_pos + cell_size / 2.5;
-	m_position.y = cell_size / 5 + start_pos + cell_size / 2.5;
-}
-
-Entity::Entity(int n):m_n(n)
-{
-	cell_size = (1000 - 100) / m_n;
-	start_pos = (1000 - ((m_n - 1) * cell_size - cell_size / 5)) / 2;
-	size = cell_size / 4;
-	m_position.x = start_pos + cell_size / 2.5;
-	m_position.y = cell_size / 5 + start_pos + cell_size / 2.5;
-}
-
-Entity::Entity(const Entity& ent):m_n(ent.m_n), m_position(ent.m_position), cell(ent.cell)
-{
-	cell_size = (1000 - 100) / m_n;
-	start_pos = (1000 - ((m_n - 1) * cell_size - cell_size / 5)) / 2;
-	size = cell_size / 4;
-}
-
 void Entity::draw(RenderWindow& win)
 {
 	CircleShape circ;

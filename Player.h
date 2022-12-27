@@ -16,9 +16,10 @@ public:
 
 	int getDir() const { return m_direction; };
 	Player& setdirection(int x) {m_direction=x%4; return *this; };
-
 	void Print()
-	{cout << getX() << ' ' << getY() << "|" << getcellx() << ' ' << getcelly() << "|" << getDir() << "|"<< getstartpos()<< endl;};
+	{
+		cout << "Print for Player" << endl;
+		cout << getX() << ' ' << getY() << "|" << getcellx() << ' ' << getcelly() << "|" << getDir() << "|"<< getstartpos()<< endl;};
 
 	void draw(RenderWindow& win);    //промальовка
 	void update(RenderWindow& win, const Maze &a);  //зм≥нювати м≥сцезнаходженн€ гравц€

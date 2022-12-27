@@ -31,7 +31,6 @@ public:
 	bool getWallLeft() const { return m_wallLeft; };
 	MazeCell& setWallTop(bool f) { m_wallTop = f; return *this; };
 	MazeCell& setWallLeft(bool f) { m_wallLeft = f; return *this; };
-
 };
 
 class Maze
@@ -50,4 +49,6 @@ public:
 	~Maze();
 	void draw(RenderWindow& win) const;
 	friend int Player::isCol(const Maze &a);
+
+	vector<MazeCell> operator[](int);
 };

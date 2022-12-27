@@ -5,35 +5,19 @@
 
 int main()
 {
-	Entity q;
-	q.Print();
-	Entity y(40);
-	y.Print();
-	Entity v(y);
-	v.Print();
+	//test of index operator
+	Maze a(8);
+	cout << a[1][2].getWallLeft() << "/" << a[2][2].getWallTop() << endl << endl;
 
-	Player c;
-	c.Print();
-	Player a(10);
-	a.Print();
-	Player b(a);
-	b.Print();
+	//test of virtual function
+	Entity ent(10);
+	Player player(4);
+	Entity* ptr;
+	ptr = &player;
+	ptr->Print();
 
-	Date t;
-	t.print();
-	Date r(12,57,15);
-	r.print();
-	Date w(t);
-	w.print();
 
 	Frame mf(10);
-	Frame rf;
-	Frame cf(mf);
-	mf.print();
-	rf.print();
-	cf.print();
-	Frame::check_m_choice();
-
 	mf.main_cycle();
 	return 0;
 }

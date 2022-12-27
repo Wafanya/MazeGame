@@ -4,3 +4,4 @@ void Date::print()
 {
 	cout << dd << "/" << mm << "/" << yy << endl;
 }
+
