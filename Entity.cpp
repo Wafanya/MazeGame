@@ -28,3 +28,14 @@ int Entity::Fcell()
 	}
 }
 
+bool Entity::isWin() const
+{
+	if ((m_position.x < start_pos) || (m_position.y < start_pos) || (m_position.x > cell_size / 5 + start_pos + cell_size * (m_n)) || (m_position.y > cell_size / 5 + start_pos + cell_size * (m_n)))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}

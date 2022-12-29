@@ -11,9 +11,10 @@
 using namespace sf;
 using namespace std;
 
+#include "Date.h"
 #include "Entity.h"
 #include "Player.h"
 #include "Maze.h"
 #include "Frame.h"
-#include "Date.h"
+
 

@@ -1,19 +1,5 @@
 #include "Libraries.h"
 
-Player::Player() : Entity()
-{
-	m_direction = 3;
-}
-Player::Player(int n): Entity(n)
-{
-	m_direction = 0;
-}
-Player::Player(const Player& plyr): m_direction(plyr.m_direction){
-	this->start_pos = plyr.start_pos;
-	this->m_position = plyr.m_position;
-	this->cell = plyr.cell;
-}
-
 
 void Player::draw(RenderWindow& win)
 {
@@ -34,7 +20,7 @@ void Player::draw(RenderWindow& win)
 }
 
 
-void Player::update(RenderWindow& win, const Maze &a)
+void Player::update(RenderWindow& win, const Maze& a)
 {
 	int SPEED = 1;
 	//задаЇмо д≥ю на кожну стр≥лочку
@@ -43,7 +29,7 @@ void Player::update(RenderWindow& win, const Maze &a)
 	if (Keyboard::isKeyPressed(Keyboard::Up)) { m_direction = 3; animation.y++; }
 	if (Keyboard::isKeyPressed(Keyboard::Down)) { m_direction = 4; animation.y++; }
 
-	for (int s = 0; s <cell_size/6; s++) {
+	for (int s = 0; s < cell_size / 6; s++) {
 		switch (m_direction)
 		{
 		case 1://LEFT
@@ -122,15 +108,4 @@ int Player::isCol(const Maze& a)
 	if ((nexty->getWallTop() or (!nextddx->getWallLeft() && nextddx->getWallTop() && (m_position.x >= x1 + cell_size / 5 + 1) or !nexty->getWallTop() && nextddx->getWallLeft() && (m_position.x >= x1 + 1) or (backddx->getWallTop() or nexty->getWallLeft() && !nexty->getWallTop()) && (m_position.x <= x2 - 1))) && (m_position.y >= y1 - 1) && m_direction == 4)return 4;   //нижн€€ граница-1
 
 	return 0;
-}
-bool Player::isWin() const
-{
-	if ((m_position.x < start_pos) || (m_position.y<start_pos) || (m_position.x > cell_size / 5 + start_pos + cell_size * (m_n)) || (m_position.y > cell_size / 5 + start_pos + cell_size * (m_n))  )
-	{
-		 return true;
-	}
-	else
-	{
-		return false;
-	}
 }
