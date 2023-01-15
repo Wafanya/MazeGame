@@ -1,50 +1,53 @@
 #pragma once
 #include "Libraries.h"
 
+template <class T>
+class MyNumber
+{
+public:
+    // конструктор
+    MyNumber(void) { }
+
+    // метод, що множить на 2 число
+    void Mult2(T* t) {
+        *t = (*t) * 2;
+    };
+
+    // метод, що повертає квадрат числа для деякого типу T
+    T MySquare(T number) {
+        return (T)(number * number);
+    };
+
+    // метод, що ділить два числа типу T і повертає результат типу T
+    T DivNumbers(T t1, T t2)
+    {
+        return (T)(t1 / t2);
+    };
+};
+
+
+
 int main()
 {
-	//test of index operator
-	Maze a(8);
-	cout << a[1][2].getWallLeft() << "/" << a[2][2].getWallTop() << endl;
+    MyNumber <int> i; // об'єкт i класу працює з типом int
+    MyNumber <float> f; // об'єкт f працює з типом float
 
-	//test of virtual function
-	Entity ent(10);
-	Player player(4);
-	Entity* ptr;
-	ptr = &player;
-	ptr->Print();
+    int d = 8;
+    float x = 9.3f;
 
-	cout << "--------------------------------------------------->" << endl;
+    // множення числа на 2
+    i.Mult2(&d); // d = 16
+    f.Mult2(&x); // x = 18.6
 
-	int b = 9;
-	Player(b).Print();
-	Player w;
-	cout << int(w) << endl;
+    // взяття квадрату з числа
+    int dd = i.MySquare(9); // dd = 81 - ціле число
+    double z = f.MySquare(1.1); // z = 1.21000... - дійсне число
 
-	Player c;
-	Date(c).print();
-	Date f(12, 34, 2024);
-	Player(f).Print();
-
-	cout << "--------------------------------------------------->" << endl;
-
-	Date t;
-	t--;
-	t.print();
-	Date p, k;
-	k = t + p;
-	k.print();
-	Date l, m;
-	cout << int(l != m) << "   " << int(l == m) << endl;
-	Date y(1, 2, 2023);
-	cout << int(y < l) << "   " << int(y > l) << endl;
-	Date o;
-	o = f;
-	cout << o << "Enter the date" << endl;
-	//cin >> m;
-	//cout << m;
-
-	Frame mf(10);
+    // ділення чисел
+    long int a = i.DivNumbers(5, 2); // t = 2 - ділення цілих чисел
+    float b = f.DivNumbers(5, 2); // f = 2.5 - ділення дійсних чисел
+    
+    Frame mf(10);
 	mf.main_cycle();
 	return 0;
 }
