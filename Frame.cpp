@@ -9,7 +9,6 @@ void Frame::main_cycle()
 	
 s:
 	counter = 0;
-	srand(time(NULL));
 	Player player(size);
 	const Maze maze(size);
 	w.setFramerateLimit(120);
